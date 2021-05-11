@@ -39,17 +39,46 @@ with open("ACLSV.gbk") as handle:
         for feature in record.features:
             Features.append(feature)
 
-"""
-We're interested in location field of Feature object, create list of locations from Features list
-"""
-locations = []
-for cds in Features:
-    locations.append(cds.location)
 
-print(locations)
 
-#output_file = open("ACLSVfeatures", 'w')
-#output_file.close()
+
+def format_locations(Features):
+    """
+    Takes list of CD features and outputs a nicely formatted list of location tuples (loc0, loc1)
+    We first make a list of locations from Features list
+    """
+    locations = []
+    for cds in Features:
+        locations.append(cds.location)
+    print(locations)
+
+
+    location_tuples = []
+    for loc in locations:
+        loc0 = ''
+        loc1 = ''
+        pos = 0
+        for char in loc:
+            if char != '.':
+                loc0 += char
+                pos += 1
+            else:
+                break
+
+        for char in range(pos+2, len(loc)):
+            loc1 += str(loc[char])
+        #print("loc0: " + loc0 +" loc1: " + loc1)
+        temp_tuple = (loc0, loc1)
+        location_tuples.append(temp_tuple)
+
+    print(location_tuples)
+
+
+
+
+
+
+
 
 
 
