@@ -1,6 +1,7 @@
 from Bio import GenBank
+import csv
+
 """
-GOAL:   SCAN THROUGH MULTIPLE SEQUENCE FILES IN GENBANK FILE, EXTRACT AND PRINT ALL CDS RANGES
 Format for genbank files...
 
 LOCUS       13C210_ACLSV      7541 bp    DNA     linear   UNA 
@@ -23,62 +24,57 @@ FEATURES             Location/Qualifiers
                      /note="Start codon: ATG"
 ORIGIN
         1 ATACTGATAC AGTGTACACT CACGTCGTGA GTAAACAGAT TGACGTAACG CCTCAATCGT....
-    
+
+WORKFLOW:
+-store locus for each record
+-store all locations + location data for each record
+-output with cvs
 """
 
-#open genbank file, look at each record
-def get_features_list(filename):
-    """
-    CURRENTLY ONLY HAVE "ACLSV.gbk" AS WORKING FILENAME
-    Iterate through all records in genbank file, add all Features in Feature block to Features list
+with open("ACLSV.gbk") as handle:
 
-    Feature format:
-    Feature(key='CDS', location='150..5801')
-    """
-    with open(filename) as handle:
-        Features = []
-        for record in GenBank.parse(handle):
-            for feature in record.features:
-                Features.append(feature)
-                print(feature)
+    Features = []
 
-    return Features
+    for record in GenBank.parse(handle):
+        #print(record.locus)
+        for feature in record.features:
+            Features.append(feature)
+            #print(feature.qualifiers[0].value)
+            #print("\n")
 
 
 
+locations = []
+for cds in Features:
+    locations.append(cds.location)
 
-def format_locations(Features):
-    """
-    Takes list of CD features and outputs a nicely formatted list of location tuples (loc0, loc1)
-    We first make a list of locations from Features list
-    """
-    locations = []
-    for cds in Features:
-        locations.append(cds.location)
+location_tuples = []
+for loc in locations:
+    loc0 = ''
+    loc1 = ''
+    pos = 0
+    for char in loc:
+        if char != '.':
+            loc0 += char
+            pos += 1
+        else:
+            break
 
-    location_tuples = []
-    for loc in locations:
-        loc0 = ''
-        loc1 = ''
-        pos = 0
-        for char in loc:
-            if char != '.':
-                loc0 += char
-                pos += 1
-            else:
-                break
+    for char in range(pos+2, len(loc)):
+        loc1 += str(loc[char])
 
-        for char in range(pos+2, len(loc)):
-            loc1 += str(loc[char])
-
-        temp_tuple = (loc0, loc1)
-        location_tuples.append(temp_tuple)
-
-    return location_tuples
+    temp_tuple = (loc0, loc1)
+    location_tuples.append(temp_tuple)
 
 
-Features = get_features_list("ACLSV.gbk")
-print(format_locations(Features))
+print(location_tuples)
+
+
+
+
+
+
+
 
 
 
