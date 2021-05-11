@@ -1,4 +1,4 @@
-
+from Bio import GenBank
 """
 GOAL:   SCAN THROUGH MULTIPLE SEQUENCE FILES IN GENBANK FILE, EXTRACT AND PRINT ALL CDS RANGES
 Format for genbank files...
@@ -25,14 +25,26 @@ ORIGIN
         1 ATACTGATAC AGTGTACACT CACGTCGTGA GTAAACAGAT TGACGTAACG CCTCAATCGT....
     
 """
-from Bio import GenBank
 
 #open genbank file, look at each record
 with open("ACLSV.gbk") as handle:
-    #list of all feature blocks (part of file that contains CDS)
-    features = []
+
+    #visit all feature blocks fro each record in genbank file and add each CDS feature to CDS list
+    Feature_objects = []
     for record in GenBank.parse(handle):
-        features.append(record.features)
+        for feature in record.features:
+            Feature_objects.append(feature)
+
+#extract locations from Feature objects and add them to locations list
+locations = []
+for cds in Feature_objects:
+    locations.append(cds.location)
+
+print(locations)
+
+
+
+
 
 
 
