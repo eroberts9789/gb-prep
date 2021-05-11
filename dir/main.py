@@ -29,8 +29,13 @@ from Bio import GenBank
 
 #open genbank file, look at each record
 with open("ACLSV.gbk") as handle:
+    #list of all feature blocks (part of file that contains CDS)
+    features = []
     for record in GenBank.parse(handle):
-        pass
+        features.append(record.features)
+
+
+
 
 
 
