@@ -28,19 +28,30 @@ ORIGIN
 
 #open genbank file, look at each record
 with open("ACLSV.gbk") as handle:
-
-    #visit all feature blocks fro each record in genbank file and add each CDS feature to CDS list
-    Feature_objects = []
+    """
+    Iterate through all records in genbank file, add all Features in Feature block to Features list
+    
+    Feature format:
+    Feature(key='CDS', location='150..5801')
+    """
+    Features = []
     for record in GenBank.parse(handle):
         for feature in record.features:
-            Feature_objects.append(feature)
+            Features.append(feature)
 
-#extract locations from Feature objects and add them to locations list
+"""
+We're interested in location field of Feature object, create list of locations from Features list
+"""
 locations = []
-for cds in Feature_objects:
+for cds in Features:
     locations.append(cds.location)
 
 print(locations)
+
+#output_file = open("ACLSVfeatures", 'w')
+#output_file.close()
+
+
 
 
 
