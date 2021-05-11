@@ -27,17 +27,22 @@ ORIGIN
 """
 
 #open genbank file, look at each record
-with open("ACLSV.gbk") as handle:
+def get_features_list(filename):
     """
+    CURRENTLY ONLY HAVE "ACLSV.gbk" AS WORKING FILENAME
     Iterate through all records in genbank file, add all Features in Feature block to Features list
-    
+
     Feature format:
     Feature(key='CDS', location='150..5801')
     """
-    Features = []
-    for record in GenBank.parse(handle):
-        for feature in record.features:
-            Features.append(feature)
+    with open(filename) as handle:
+        Features = []
+        for record in GenBank.parse(handle):
+            for feature in record.features:
+                Features.append(feature)
+                print(feature)
+
+    return Features
 
 
 
@@ -50,8 +55,6 @@ def format_locations(Features):
     locations = []
     for cds in Features:
         locations.append(cds.location)
-    print(locations)
-
 
     location_tuples = []
     for loc in locations:
@@ -67,12 +70,15 @@ def format_locations(Features):
 
         for char in range(pos+2, len(loc)):
             loc1 += str(loc[char])
-        #print("loc0: " + loc0 +" loc1: " + loc1)
+
         temp_tuple = (loc0, loc1)
         location_tuples.append(temp_tuple)
 
-    print(location_tuples)
+    return location_tuples
 
+
+Features = get_features_list("ACLSV.gbk")
+print(format_locations(Features))
 
 
 
