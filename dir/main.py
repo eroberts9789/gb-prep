@@ -64,32 +64,29 @@ def format_locs(location):
         else:
             break
 
-    for char in range(pos + 2, len(location)):
-        loc1 += str(location[char])
+    for x in range(pos + 2, len(location)):
+        loc1 += str(location[x])
 
-    loc_tuple = (loc0, loc1)
-    return loc_tuple
+    locs = [loc0, loc1]
+    #print (loc0 + " " +loc1)
+    return locs
 
-def format_qualifiers(qualifier):
-    quals0 = ''
-    quals1 = ''
+def format_quals(qualifier):
+    qualifier = str.strip(qualifier, '"')
+    qual0 = ''
+    qual1 = ''
     pos = 0
     for char in qualifier:
         if char != ' ':
-            quals0 += char
+            qual0 += char
             pos += 1
         else:
             break
 
-    for char in range(pos +1, len(qualifier)):
-        quals1 += qualifier[char]
-    if quals1 == '':
-        quals1 = quals0
-    quals0 = str.strip(quals0)
-    quals1 = str.strip(quals1)
-    print(quals0 + quals1)
-    quals_tuple = (quals0, quals1)
-    return quals_tuple
+    for x in range(pos +1, len(qualifier)):
+        qual1 += qualifier[x]
+
+    return [qual0, qual1]
 
 
 input_name = "ACLSV.gbk"
@@ -100,20 +97,17 @@ record_list = []
 with open(input_name) as handle:
 
     for record in GenBank.parse(handle):
-        Feature = {
+        record_info = {
             "locus": "",
-            "features": [],
+            "features": []
         }
 
-        Feature["locus"] = record.locus
+        record_info["locus"] = record.locus
 
         for feature in record.features:
-            Feature["features"].append(feature)
-            #print(feature.qualifiers[0].value)
-            format_qualifiers(feature.qualifiers[0].value)
+            record_info["features"].append(feature)
 
-        #print(Feature)
-        record_list.append(Feature)
+        record_list.append(record_info)
 
 """
 NOW WE WRITE OUTPUT USING CSV IN THE FORMAT SHOWN BELOW:
@@ -121,36 +115,49 @@ NOW WE WRITE OUTPUT USING CSV IN THE FORMAT SHOWN BELOW:
 >Feature	<LOCUS>
 loc0	loc1	feature_key
                 product	<first word in qualifier desc>
-                product	<other words in qualidier desc>
+                product	<other words in qualifier desc>
 loc0	loc1	feature_key
                 product	<first word in qualifier desc>
-                product	<other words in qualidier desc>
+                product	<other words in qualifier desc>
 loc0	loc1	feature_key
                 product	<first word in qualifier desc>
-                product	<other words in qualidier desc>
+                product	<other words in qualifier desc>
                 
 lOOP BACK THROUGH, PRINTING AS WE GO!
 """
 
-with open(output_name, 'w', newline='') as file:
-    for record in record_list:
-        writer = csv.writer(file, delimiter='\t')
+with open(output_name, 'w', newline='') as output_file:
+    writer = csv.writer(output_file, delimiter='\t', escapechar=' ', quoting=csv.QUOTE_NONE)
 
+    for record in record_list:
         header_vals = ['>Feature', str(record["locus"])]
         writer.writerow(header_vals)
 
         for feature in record["features"]:
-            #print line: loc0	loc1	feature_key
+            """
+            first change format '124..5675' given in feature.location to a list of locations stored in locs
+            the format output so it prints line "loc0	loc1	feature_key"
+            """
             locs = format_locs(feature.location)
 
-            loc_line_vals = [str(locs[0]), str(locs[1]), str(feature.key)]
+            loc_line_vals = [locs[0], locs[1], str(feature.key)]
             writer.writerow(loc_line_vals)
 
-            #print lines: product	<first word in qualifier desc>
-            qualifiers = format_qualifiers(feature.qualifiers[0].value)
+            """
+            first seperate the feature type into first word and following description (if exists, don't output if following description doens't exist)
+            """
+            quals = format_quals(feature.qualifiers[0].value)
 
-            product_line_list = [['Product', qualifiers[0]], ['Product', qualifiers[1]]]
-            writer.writerows(product_line_list)
+            for qual in quals:
+                if len(qual) != 0:
+                    product_line_vals = ['\t','\t', 'Product', qual]
+                    writer.writerow(product_line_vals)
+        writer.writerow('\t')
+
+
+
+
+
 
 
 
