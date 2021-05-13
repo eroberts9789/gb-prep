@@ -29,6 +29,10 @@ we loop through all records in genbank file and create a list of record dictiona
 record dictionaries will be formatted as:
 
 """
+global input_name
+input_name = "PNRSV_RNA3.gbk"
+global output_name
+output_name = "features_output.txt"
 
 def format_locs(location):
     loc0 = ''
@@ -48,8 +52,45 @@ def format_locs(location):
     # print (loc0 + " " +loc1)
     return locs
 
-input_name = "PNRSV_RNA3.gbk"
-output_name = "features_output.txt"
+def format_record_list(first_record, record_list):
+    first_record_feature_keys = []
+    for feature in first_record['features']:
+        first_record_feature_keys.append(feature.key)
+    #print(first_record_feature_keys)
+
+
+    for record in record_list:
+        """
+        REMOVE ANY REPEATED FEATURES BY TURNING INTO DICT AND THEN BACK TO LIST
+        """
+        record['features'] = list(dict.fromkeys(record['features']))
+
+        for feature in record['features']:
+            """
+            IF THERE IS A FEATURE KEY THAT DOESN'T BELONG IN THE OUTPUT, REMOVE IT FROM THE RECORD IN THE RECORD_LIST
+            """
+            if feature.key not in first_record_feature_keys:
+                #print(feature)
+                record['features'].remove(feature)
+
+        if len(record['features']) != len(first_record_feature_keys):
+            #print(record['features'])
+            print("Error: record " + record['locus'] + " in " + input_name + " has too many features" )
+
+    return record_list
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """
 PARSE GENBANK FILE AND STORE ALL REQUIRED INFO IN RECORD DICTIONARIES IN RECORD_LIST LIST
@@ -70,6 +111,12 @@ with open(input_name) as handle:
             record["features"].append(feature)
 
         record_list.append(record)
+
+"""
+update records in records list so that they all match the format of the first record
+"""
+first_record = record_list[0]
+record_list = format_record_list(first_record, record_list)
 
 """
 NOW WRITE EVERYTHING TO FEATURES FILE

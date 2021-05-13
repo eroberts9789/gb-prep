@@ -1,0 +1,124 @@
+>Feature	13C214_PNRSV_RNA3
+174	1025	CDS
+ 		 		Product	ORF
+ 		 		Product	movement  protein
+1100	1774	CDS
+ 		 		Product	ORF
+ 		 		Product	coat  protein
+ 	
+>Feature	13C221_PNRSV_RNA3
+176	1027	CDS
+ 		 		Product	ORF
+1102	1776	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C222_PNRSV_RNA3
+1	1918	source
+ 		 		Product	genomic  RNA
+156	1007	CDS
+ 		 		Product	ORF
+1082	1759	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C227_PNRSV_RNA3_A
+174	1031	CDS
+ 		 		Product	ORF
+1110	1784	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C233_PNRSV_RNA3
+157	1008	CDS
+ 		 		Product	ORF
+1084	1764	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C241_PNRSV_RNA3
+157	1008	CDS
+ 		 		Product	ORF
+1087	1761	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C243_PNRSV_RNA3
+176	1027	CDS
+ 		 		Product	ORF
+1105	1779	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C257_PNRSV_RNA3
+157	1014	CDS
+ 		 		Product	ORF
+1097	1771	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C258_PNRSV_RNA3
+176	1033	CDS
+ 		 		Product	ORF
+1116	1790	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C260_PNRSV_RNA3
+176	1027	CDS
+ 		 		Product	ORF
+583	780	CDS
+ 		 		Product	ORF
+1103	1783	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C268_PNRSV_RNA3
+161	1012	CDS
+ 		 		Product	ORF
+1088	1768	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C277_PNRSV_RNA3
+176	1027	CDS
+ 		 		Product	ORF
+583	780	CDS
+ 		 		Product	ORF
+1103	1783	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13C278_PNRSV_RNA3
+176	1027	CDS
+ 		 		Product	ORF
+1034	1255	CDS
+ 		 		Product	ORF
+1105	1779	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13TF102_PNRSV_RNA3
+174	1025	CDS
+ 		 		Product	ORF
+1100	1774	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13TF106_PNRSV_RNA3
+156	1007	CDS
+ 		 		Product	ORF
+1082	1756	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13TF118_PNRSV_RNA3
+174	1025	CDS
+ 		 		Product	ORF
+1100	1774	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13TF132_PNRSV_RNA3
+156	1007	CDS
+ 		 		Product	ORF
+1082	1756	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13TF133_PNRSV_RNA3
+176	1027	CDS
+ 		 		Product	ORF
+1103	1783	CDS
+ 		 		Product	ORF
+ 	
+>Feature	13TF169_PNRSV_RNA3
+157	1008	CDS
+ 		 		Product	ORF
+1084	1764	CDS
+ 		 		Product	ORF
+ 	
