@@ -1,29 +1,19 @@
+
 from Bio import GenBank
 import csv
 
-"""
-FORMAT FOR INPUT/GENBANK FILE WHICH WE WANT TO EXTRACT DESIRED DATA FROM
 
-LOCUS       13C202_PNRSV_RNA2      2572 bp    DNA     linear   UNA 
-FEATURES             Location/Qualifiers
-     CDS             18..2417
-                     /cds_type="ORF"
-                     /product="polymerase p2"
-                     /note="Length: 2400"
-                     /note="Found at strand: positive"
-                     /note="Start codon: ATG"
-ORIGIN
-        1 CTCGTGGTTG AGTTACAATG AATCCTTTGA ATCAGTTGTT GACACATGGG TGTACTGCTA
-			
-
-HOW DATA IS STORED IN THIS FILE BEFORE OUTPUT:
-
-we loop through all records in genbank file and create a list of record dictionaries named record_list that will conatain all info we want to output
-record dictionaries will be formatted as:
-
-"""
+global input_name
+input_name = "12G422__GRGV.gbk"
+global output_name
+output_name = "features_output.txt"
 
 def format_locs(location):
+    """
+    Takes string describing loaction and returns nicely formatted tuple
+    :param location: location string in the format 123..1234
+    :return: location tuple (123, 1234)
+    """
     loc0 = ''
     loc1 = ''
     pos = 0
@@ -38,98 +28,113 @@ def format_locs(location):
         loc1 += str(location[x])
 
     locs = [loc0, loc1]
-    #print (loc0 + " " +loc1)
+    # print (loc0 + " " +loc1)
     return locs
 
+def format_record_list(first_record : list, record_list : list):
+    """
+    Takes full list of input records and removes any repeated features and any feature keys that don't match the feature keys in the first record. Prints list of incorrectly formatted features if contains extra features after these steps
 
-input_name = "PNRSV_RNA1.gbk"
-output_name = "ACLSVfeatures.txt"
+    :param first_record: record formatted correctly, compare others to this format
+    :param record_list: list of all records from gbk file
+    :return: list of records only containing records with the correct number of features that match desired format
+    """
 
-record_list = []
+    first_record_feature_keys = []
+    for feature in first_record['features']:
+        first_record_feature_keys.append(feature.key)
 
+    must_fix_format = []
+    result = []
+    for record in record_list:
+        #REMOVE ANY REPEATED FEATURES BY TURNING INTO DICT AND THEN BACK TO LIST
+        record['features'] = list(dict.fromkeys(record['features']))
+
+        for feature in record['features']:
+            #IF THERE IS A FEATURE KEY THAT DOESN'T MATCH THE FEATURE KEYS IN THE FIRST FEATURE, REMOVE THAT FEATURE FROM RECORD
+            if feature.key not in first_record_feature_keys:
+                record['features'].remove(feature)
+
+        #CREATE LIST OF POORLY FORMATTED RECORDS THAT NEED TO BE FIXED
+        if len(record['features']) > len(first_record_feature_keys):
+            must_fix_format.append(record)
+        #CREATE LIST OF CORRECTLY FORMATTED RECORDS
+        if record not in must_fix_format:
+            result.append(record)
+
+    #IF LIST CONTAINS ANY POORLY FORMATTED RECORDS, PRINT THEM OUT
+    if len(must_fix_format) > 0:
+        print('SOME OF YOUR RECORDS ARE FORMATTED INCORRECTLY. THE FOLLOWING ARE NOT INCLUDED IN YOUR OUTPUT FILES.')
+        for record in must_fix_format:
+            print(record['locus'])
+
+    return (result)
+
+
+
+
+#PARSE GENBANK FILE AND STORE ALL REQUIRED INFO IN RECORD DICTIONARIES IN RECORD_LIST LIST
 with open(input_name) as handle:
 
-    first_record = True
-    first_format = {
-        'feature_keys' : [],
-        'feature_type' : '',
-        'product' : ''
-    }
-
-    for record in GenBank.parse(handle):
-
-        record_info = {
+    record_list = []
+    for gbk_record in GenBank.parse(handle):
+        record = {
             "locus": "",
             "features": []
         }
+        record["locus"] = gbk_record.locus
+        for feature in gbk_record.features:
+            record["features"].append(feature)
+        record_list.append(record)
 
-        record_info["locus"] = record.locus
-
-        for feature in record.features:
-
-            #only do this for first record, this is the record that is best formatted and the rest of the feature qualifiers should match this format in the output
-            if first_record == True:
-                first_format['feature_keys'].append(feature.key)
-                for qualifier in feature.qualifiers:
-                    if "type" in qualifier.key:
-                        first_format['feature_type'] = qualifier.value
-                        #print(first_format['feature_type'])
-                    if "product" in qualifier.key:
-                        first_format['product'] = qualifier.value
-                        #print(first_format['product'])
-            first_record = False
-
-            #only save location output for rest of records because features output will match first record
-            record_info["features"].append(feature)
-
-        record_list.append(record_info)
+first_record = record_list[0]
+record_list = format_record_list(first_record, record_list)
 
 
-
-"""
-NOW WE WRITE OUTPUT USING CSV IN THE FORMAT SHOWN BELOW:
-
->Feature	<LOCUS>
-loc0	loc1	feature_key
-                product	<first word in qualifier desc>
-                product	<other words in qualifier desc>
-loc0	loc1	feature_key
-                product	<first word in qualifier desc>
-                product	<other words in qualifier desc>
-loc0	loc1	feature_key
-                product	<first word in qualifier desc>
-                product	<other words in qualifier desc>
-                
-lOOP BACK THROUGH, PRINTING AS WE GO!
-"""
-
-
+#NOW WRITE EVERYTHING TO FEAUTURES FILE
 with open(output_name, 'w', newline='') as output_file:
     writer = csv.writer(output_file, delimiter='\t', escapechar=' ', quoting=csv.QUOTE_NONE)
 
     for record in record_list:
+        """
+        write header line in the format:
+        >Feature	<LOCUS>
+        """
+        header_format = ['>Feature', record["locus"]]
+        writer.writerow(header_format)
 
-        header_vals = ['>Feature', record["locus"]]
-        writer.writerow(header_vals)
+        for feature, first_feature in zip(record["features"], first_record['features']):
+            """
+            write location line in the format:
+            <loc0>	<loc1>	<feature.key>
+            """
+            locs = format_locs(feature.location)
+            loc_line_format = [locs[0], locs[1], str(feature.key)]
+            writer.writerow(loc_line_format)
 
-        for feature in record["features"]:
-            if feature.key in first_format['feature_keys']:
-                locs = format_locs(feature.location)
-
-                loc_line_vals = [locs[0], locs[1], str(feature.key)]
-                writer.writerow(loc_line_vals)
-
-                feature_type = str.strip(first_format['feature_type'], '"')
-                product = str.strip(first_format['product'], '"')
-
-                if len(feature_type) > 0:
-                    type_line_format = ['\t', '\t', 'Product', feature_type]
+            #ITERATES THROUGH AND PRINTS QUALIFIERS IN FIRST FILE SO ALL OUTPUT MATCHES
+            for qualifier in first_feature.qualifiers:
+                """
+                looks for qualifier.key named "feature_type". If found, print line in the format:
+                                Product	<feature_type>
+                """
+                if 'type' in qualifier.key:
+                    type = str.strip(qualifier.value, '"')
+                    type_line_format = ['\t', '\t', 'Product', type]
                     writer.writerow(type_line_format)
-                if len(product) > 0:
+                """
+                looks for qualifier.key named "product". If found, print line in the format:
+                                Product	<product>
+                """
+                if 'product' in qualifier.key:
+                    product = str.strip(qualifier.value, '"')
                     product_line_format = ['\t', '\t', 'Product', product]
                     writer.writerow(product_line_format)
 
-        writer.writerow('\t')
+            writer.writerow('\t')
+
+
+
 
 
 
