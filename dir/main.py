@@ -4,7 +4,7 @@ import csv
 
 
 global input_name
-input_name = "ACLSV.gbk"
+input_name = "12G422__GRGV.gbk"
 global output_name
 output_name = "features_output.txt"
 
@@ -57,20 +57,17 @@ def format_record_list(first_record : list, record_list : list):
                 record['features'].remove(feature)
 
         #CREATE LIST OF POORLY FORMATTED RECORDS THAT NEED TO BE FIXED
-        if len(record['features']) != len(first_record_feature_keys):
+        if len(record['features']) > len(first_record_feature_keys):
             must_fix_format.append(record)
         #CREATE LIST OF CORRECTLY FORMATTED RECORDS
         if record not in must_fix_format:
             result.append(record)
 
     #IF LIST CONTAINS ANY POORLY FORMATTED RECORDS, PRINT THEM OUT
-    global formatted_right
     if len(must_fix_format) > 0:
-        formatted_right = False
         print('SOME OF YOUR RECORDS ARE FORMATTED INCORRECTLY. THE FOLLOWING ARE NOT INCLUDED IN YOUR OUTPUT FILES.')
         for record in must_fix_format:
             print(record['locus'])
-    else: formatted_right = True
 
     return (result)
 
@@ -99,81 +96,41 @@ record_list = format_record_list(first_record, record_list)
 with open(output_name, 'w', newline='') as output_file:
     writer = csv.writer(output_file, delimiter='\t', escapechar=' ', quoting=csv.QUOTE_NONE)
 
-    #THIS ONLY APPLIES IF RECORD WERE ALREADY ALL FORMATTED WITH CORRECT FEATURES
-    if formatted_right == True:
-        for record in record_list:
+    for record in record_list:
+        """
+        write header line in the format:
+        >Feature	<LOCUS>
+        """
+        header_format = ['>Feature', record["locus"]]
+        writer.writerow(header_format)
+
+        for feature, first_feature in zip(record["features"], first_record['features']):
             """
-            write header line in the format:
-            >Feature	<LOCUS>
+            write location line in the format:
+            <loc0>	<loc1>	<feature.key>
             """
-            header_format = ['>Feature', record["locus"]]
-            writer.writerow(header_format)
+            locs = format_locs(feature.location)
+            loc_line_format = [locs[0], locs[1], str(feature.key)]
+            writer.writerow(loc_line_format)
 
-            for feature in record["features"]:
+            #ITERATES THROUGH AND PRINTS QUALIFIERS IN FIRST FILE SO ALL OUTPUT MATCHES
+            for qualifier in first_feature.qualifiers:
                 """
-                write location line in the format:
-                <loc0>	<loc1>	<feature.key>
+                looks for qualifier.key named "feature_type". If found, print line in the format:
+                                Product	<feature_type>
                 """
-                locs = format_locs(feature.location)
-                loc_line_format = [locs[0], locs[1], str(feature.key)]
-                writer.writerow(loc_line_format)
-
-                for qualifier in feature.qualifiers:
-                    """
-                    looks for qualifier.key named "feature_type". If found, print line in the format:
-                                    Product	<feature_type>
-                    """
-                    if 'type' in qualifier.key:
-                        type = str.strip(qualifier.value, '"')
-                        type_line_format = ['\t', '\t', 'Product', type]
-                        writer.writerow(type_line_format)
-                    """
-                    looks for qualifier.key named "product". If found, print line in the format:
-                                    Product	<product>
-                    """
-                    if 'product' in qualifier.key:
-                        product = str.strip(qualifier.value, '"')
-                        product_line_format = ['\t', '\t', 'Product', product]
-                        writer.writerow(product_line_format)
-
-            writer.writerow('\t')
-
-    else:
-        for record in record_list:
-            """
-            write header line in the format:
-            >Feature	<LOCUS>
-            """
-            header_format = ['>Feature', record["locus"]]
-            writer.writerow(header_format)
-
-            for feature, first_feature in zip(record["features"], first_record['features']):
+                if 'type' in qualifier.key:
+                    type = str.strip(qualifier.value, '"')
+                    type_line_format = ['\t', '\t', 'Product', type]
+                    writer.writerow(type_line_format)
                 """
-                write location line in the format:
-                <loc0>	<loc1>	<feature.key>
+                looks for qualifier.key named "product". If found, print line in the format:
+                                Product	<product>
                 """
-                locs = format_locs(feature.location)
-                loc_line_format = [locs[0], locs[1], str(feature.key)]
-                writer.writerow(loc_line_format)
-
-                #ITERATES THROUGH AND PRINTS QUALIFIERS IN FIRST FILE SO ALL OUTPUT MATCHES
-                for qualifier in first_feature.qualifiers:
-                    """
-                    looks for qualifier.key named "feature_type". If found, print line in the format:
-                                    Product	<feature_type>
-                    """
-                    if 'type' in qualifier.key:
-                        type = str.strip(qualifier.value, '"')
-                        type_line_format = ['\t', '\t', 'Product', type]
-                        writer.writerow(type_line_format)
-                    """
-                    looks for qualifier.key named "product". If found, print line in the format:
-                                    Product	<product>
-                    """
-                    if 'product' in qualifier.key:
-                        product = str.strip(qualifier.value, '"')
-                        product_line_format = ['\t', '\t', 'Product', product]
-                        writer.writerow(product_line_format)
+                if 'product' in qualifier.key:
+                    product = str.strip(qualifier.value, '"')
+                    product_line_format = ['\t', '\t', 'Product', product]
+                    writer.writerow(product_line_format)
 
             writer.writerow('\t')
 
