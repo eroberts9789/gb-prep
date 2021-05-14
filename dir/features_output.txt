@@ -1,133 +1,376 @@
->Feature	13C214_PNRSV_RNA3
-174	1025	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1100	1774	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C221_PNRSV_RNA3
-176	1027	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1102	1776	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C222_PNRSV_RNA3
-1	1918	source
- 		 		Product	ORF
- 		 		Product	movement  protein
-156	1007	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C227_PNRSV_RNA3_A
-174	1031	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1110	1784	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C233_PNRSV_RNA3
-157	1008	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1084	1764	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C241_PNRSV_RNA3
-157	1008	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1087	1761	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C243_PNRSV_RNA3
-176	1027	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1105	1779	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C257_PNRSV_RNA3
-157	1014	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1097	1771	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C258_PNRSV_RNA3
-176	1033	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1116	1790	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C260_PNRSV_RNA3
-176	1027	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-583	780	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C268_PNRSV_RNA3
-161	1012	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1088	1768	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C277_PNRSV_RNA3
-176	1027	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-583	780	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13C278_PNRSV_RNA3
-176	1027	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1034	1255	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13TF102_PNRSV_RNA3
-174	1025	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1100	1774	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13TF106_PNRSV_RNA3
-156	1007	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1082	1756	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13TF118_PNRSV_RNA3
-174	1025	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1100	1774	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13TF132_PNRSV_RNA3
-156	1007	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1082	1756	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13TF133_PNRSV_RNA3
-176	1027	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1103	1783	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
->Feature	13TF169_PNRSV_RNA3
-157	1008	CDS
- 		 		Product	ORF
- 		 		Product	movement  protein
-1084	1764	CDS
- 		 		Product	ORF
- 		 		Product	coat  protein
+>Feature	13C210_ACLSV
+150	5801	CDS
+ 		 		Product	ORF1  replicase
+5713	7095	CDS
+ 		 		Product	ORF2  movement  protein
+6608	7360	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C227_ACLSV
+147	5798	CDS
+ 		 		Product	ORF1  replicase
+5710	7092	CDS
+ 		 		Product	ORF2  movement  protein
+6776	7357	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C233_ACLSV
+140	5791	CDS
+ 		 		Product	ORF1  replicase
+5703	7085	CDS
+ 		 		Product	ORF2  movement  protein
+6769	7350	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C238_ACLSV
+153	5807	CDS
+ 		 		Product	ORF1  replicase
+5719	7101	CDS
+ 		 		Product	ORF2  movement  protein
+6785	7366	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C247_ACLSV
+152	5803	CDS
+ 		 		Product	ORF1  replicase
+5715	7097	CDS
+ 		 		Product	ORF2  movement  protein
+6610	7362	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C248_ACLSV
+139	5790	CDS
+ 		 		Product	ORF1  replicase
+5702	7084	CDS
+ 		 		Product	ORF2  movement  protein
+6597	7349	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C257_ACLSV_A
+137	5788	CDS
+ 		 		Product	ORF1  replicase
+5700	7082	CDS
+ 		 		Product	ORF2  movement  protein
+6766	7347	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C258_ACLSV
+152	5803	CDS
+ 		 		Product	ORF1  replicase
+5715	7097	CDS
+ 		 		Product	ORF2  movement  protein
+6781	7362	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13C274_ACLSV
+131	5776	CDS
+ 		 		Product	ORF1  replicase
+5688	7028	CDS
+ 		 		Product	ORF2  movement  protein
+6724	7305	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF107_ACLSV_A
+147	5798	CDS
+ 		 		Product	ORF1  replicase
+5710	7092	CDS
+ 		 		Product	ORF2  movement  protein
+6605	7357	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF107_ACLSV_B
+126	5777	CDS
+ 		 		Product	ORF1  replicase
+5689	7071	CDS
+ 		 		Product	ORF2  movement  protein
+6584	7336	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF142_ACLSV_A
+111	5762	CDS
+ 		 		Product	ORF1  replicase
+5674	7056	CDS
+ 		 		Product	ORF2  movement  protein
+6740	7321	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF147_ACLSV_B
+137	5788	CDS
+ 		 		Product	ORF1  replicase
+5700	7082	CDS
+ 		 		Product	ORF2  movement  protein
+6595	7347	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF149_ACLSV_A
+141	5750	CDS
+ 		 		Product	ORF1  replicase
+5662	7044	CDS
+ 		 		Product	ORF2  movement  protein
+6557	7309	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF149_ACLSV_B
+150	5801	CDS
+ 		 		Product	ORF1  replicase
+5713	7095	CDS
+ 		 		Product	ORF2  movement  protein
+6608	7360	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF149_ACLSV_C
+144	5795	CDS
+ 		 		Product	ORF1  replicase
+5707	7089	CDS
+ 		 		Product	ORF2  movement  protein
+6602	7354	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF149_ACLSV_D
+147	5798	CDS
+ 		 		Product	ORF1  replicase
+5710	7092	CDS
+ 		 		Product	ORF2  movement  protein
+6605	7357	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF149_ACLSV_E
+137	5794	CDS
+ 		 		Product	ORF1  replicase
+5706	7085	CDS
+ 		 		Product	ORF2  movement  protein
+6769	7350	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF150_ACLSV_A
+425	5758	CDS
+ 		 		Product	ORF1  replicase
+5670	7052	CDS
+ 		 		Product	ORF2  movement  protein
+6565	7317	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF153_ACLSV_A
+147	5798	CDS
+ 		 		Product	ORF1  replicase
+5710	7092	CDS
+ 		 		Product	ORF2  movement  protein
+6776	7357	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF153__ACLSV_B
+138	5789	CDS
+ 		 		Product	ORF1  replicase
+5707	7083	CDS
+ 		 		Product	ORF2  movement  protein
+6767	7348	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF153_ACLSV_C
+137	5797	CDS
+ 		 		Product	ORF1  replicase
+5709	7088	CDS
+ 		 		Product	ORF2  movement  protein
+6772	7353	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF154_ACLSV
+136	5787	CDS
+ 		 		Product	ORF1  replicase
+5699	7081	CDS
+ 		 		Product	ORF2  movement  protein
+6594	7346	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF155_ACLSV
+144	5795	CDS
+ 		 		Product	ORF1  replicase
+5707	7089	CDS
+ 		 		Product	ORF2  movement  protein
+6602	7354	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF157_ACLSV_A
+150	5801	CDS
+ 		 		Product	ORF1  replicase
+5713	7095	CDS
+ 		 		Product	ORF2  movement  protein
+6779	7360	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF157_ACLSV_B
+145	5796	CDS
+ 		 		Product	ORF1  replicase
+5714	7090	CDS
+ 		 		Product	ORF2  movement  protein
+6603	7355	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF157_ACLSV_C
+147	5804	CDS
+ 		 		Product	ORF1  replicase
+5716	7098	CDS
+ 		 		Product	ORF2  movement  protein
+6782	7363	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF157_ACLSV_D
+138	5789	CDS
+ 		 		Product	ORF1  replicase
+5701	7083	CDS
+ 		 		Product	ORF2  movement  protein
+6596	7348	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF174_ACLSV_A
+139	5790	CDS
+ 		 		Product	ORF1  replicase
+5702	7081	CDS
+ 		 		Product	ORF2  movement  protein
+6765	7346	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF174_ACLSV_B
+146	5800	CDS
+ 		 		Product	ORF1  replicase
+5712	7094	CDS
+ 		 		Product	ORF2  movement  protein
+6778	7359	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF175_ACLSV_A
+130	5781	CDS
+ 		 		Product	ORF1  replicase
+5693	7075	CDS
+ 		 		Product	ORF2  movement  protein
+6759	7340	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF175_ACLSV_B
+145	5799	CDS
+ 		 		Product	ORF1  replicase
+5711	7090	CDS
+ 		 		Product	ORF2  movement  protein
+6774	7355	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF176_ACLSV
+149	5797	CDS
+ 		 		Product	ORF1  replicase
+5709	7091	CDS
+ 		 		Product	ORF2  movement  protein
+6604	7356	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF177_ACLSV_A
+137	5788	CDS
+ 		 		Product	ORF1  replicase
+5700	7082	CDS
+ 		 		Product	ORF2  movement  protein
+6766	7347	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF177_ACLSV_B
+147	5798	CDS
+ 		 		Product	ORF1  replicase
+5710	7092	CDS
+ 		 		Product	ORF2  movement  protein
+6776	7357	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF178_ACLSV
+139	5790	CDS
+ 		 		Product	ORF1  replicase
+5702	7084	CDS
+ 		 		Product	ORF2  movement  protein
+6768	7349	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF180_ACLSV_A
+148	5799	CDS
+ 		 		Product	ORF1  replicase
+5711	7093	CDS
+ 		 		Product	ORF2  movement  protein
+6606	7358	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF180_ACLSV_B
+145	5796	CDS
+ 		 		Product	ORF1  replicase
+5708	7090	CDS
+ 		 		Product	ORF2  movement  protein
+6603	7355	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF185_ACLSV
+141	5792	CDS
+ 		 		Product	ORF1  replicase
+5710	7086	CDS
+ 		 		Product	ORF2  movement  protein
+6599	7351	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF188_ACLSV
+138	5789	CDS
+ 		 		Product	ORF1  replicase
+5701	7083	CDS
+ 		 		Product	ORF2  movement  protein
+6767	7348	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF189_ACLSV_A
+147	5798	CDS
+ 		 		Product	ORF1  replicase
+5710	7092	CDS
+ 		 		Product	ORF2  movement  protein
+6605	7357	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF189_ACLSV_B
+137	5788	CDS
+ 		 		Product	ORF1  replicase
+5700	7082	CDS
+ 		 		Product	ORF2  movement  protein
+6595	7347	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF196_ACLSV
+154	5805	CDS
+ 		 		Product	ORF1  replicase
+5717	7099	CDS
+ 		 		Product	ORF2  movement  protein
+6612	7364	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF198_ACLSV_A
+139	5790	CDS
+ 		 		Product	ORF1  replicase
+5702	7084	CDS
+ 		 		Product	ORF2  movement  protein
+6768	7349	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF198_ACLSV_C
+139	5790	CDS
+ 		 		Product	ORF1  replicase
+5702	7084	CDS
+ 		 		Product	ORF2  movement  protein
+6597	7349	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF202_ACLSV_A
+140	5791	CDS
+ 		 		Product	ORF1  replicase
+5703	7085	CDS
+ 		 		Product	ORF2  movement  protein
+6769	7350	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
+>Feature	13TF202_ACLSV_B
+148	5799	CDS
+ 		 		Product	ORF1  replicase
+5711	7090	CDS
+ 		 		Product	ORF2  movement  protein
+6774	7355	CDS
+ 		 		Product	ORF3  coat  protein
+ 	
