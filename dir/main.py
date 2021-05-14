@@ -8,7 +8,6 @@ input_name = "12G422__GRGV.gbk"
 global output_name
 output_name = "features_output.txt"
 
-
 def format_locs(location):
     """
     Takes string describing loaction and returns nicely formatted tuple
