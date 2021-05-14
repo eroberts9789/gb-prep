@@ -33,6 +33,8 @@ global input_name
 input_name = "PNRSV_RNA3.gbk"
 global output_name
 output_name = "features_output.txt"
+global formatted_right
+formatted_right = False
 
 def format_locs(location):
     loc0 = ''
@@ -58,7 +60,8 @@ def format_record_list(first_record, record_list):
         first_record_feature_keys.append(feature.key)
     #print(first_record_feature_keys)
 
-
+    records_that_caused_issues = []
+    result = []
     for record in record_list:
         """
         REMOVE ANY REPEATED FEATURES BY TURNING INTO DICT AND THEN BACK TO LIST
@@ -70,21 +73,36 @@ def format_record_list(first_record, record_list):
             IF THERE IS A FEATURE KEY THAT DOESN'T BELONG IN THE OUTPUT, REMOVE IT FROM THE RECORD IN THE RECORD_LIST
             """
             if feature.key not in first_record_feature_keys:
-                #print(feature)
                 record['features'].remove(feature)
 
         if len(record['features']) != len(first_record_feature_keys):
-            #print(record['features'])
-            print("Error: record " + record['locus'] + " in " + input_name + " has too many features" )
+            records_that_caused_issues.append(record)
 
-    return record_list
+        if record not in records_that_caused_issues:
+            result.append(record)
+
+    for record in result:
+        #print('HI')
+        for (feature, first_feature) in (record['features'], first_record['features']):
+            for qualifier in first_feature.qualifiers:
+                if 'type' in qualifier.key:
+                    TYPE  = qualifier
+                    #print(TYPE)
+                if 'product' in qualifier.key:
+                    PRODUCT = qualifier
+                    #print(PRODUCT)
+            for qualifier in feature.qualifiers:
+                if 'type' in qualifier.key:
+                    feature.qualifiers.remove(qualifier)
+                    feature.qualifiers.append(TYPE)
+                if 'product' in qualifier.key:
+                    feature.qualifiers.remove(qualifier)
+                    feature.qualifiers.append(PRODUCT)
 
 
 
 
-
-
-
+        return (result, records_that_caused_issues)
 
 
 
@@ -116,7 +134,9 @@ with open(input_name) as handle:
 update records in records list so that they all match the format of the first record
 """
 first_record = record_list[0]
-record_list = format_record_list(first_record, record_list)
+all_recs = format_record_list(first_record, record_list)
+record_list = all_recs[0]
+incorrect_format = all_recs[1]
 
 """
 NOW WRITE EVERYTHING TO FEATURES FILE
