@@ -1,35 +1,22 @@
-from Bio import GenBank
+import os
 import csv
 
+from Bio import GenBank
 
-global input_name
-input_name = "GRVFV.gbk"
-global output_name
-output_name = "features_output.txt"
+INPUT_PATH = "GRVFV.gbk"
+OUTPUT_PATH = "features_output.txt"
 
 
-def format_locs(location):
+def format_locations(location):
     """
-    Takes string describing loaction and returns nicely formatted tuple
+    Takes string describing location and returns nicely formatted tuple
+
     :param location: location string in the format 123..1234
     :return: location tuple (123, 1234)
     """
-    loc0 = ''
-    loc1 = ''
-    pos = 0
-    for char in location:
-        if char != '.':
-            loc0 += char
-            pos += 1
-        else:
-            break
+    return location.split("..")
 
-    for x in range(pos + 2, len(location)):
-        loc1 += str(location[x])
 
-    locs = [loc0, loc1]
-    # print (loc0 + " " +loc1)
-    return locs
 
 def format_record_list(first_record : list, record_list : list):
     """
@@ -41,22 +28,21 @@ def format_record_list(first_record : list, record_list : list):
     """
 
     first_record_feature_keys = []
-    for feature in first_record['features']:
+
+    for feature in first_record["features"]:
         first_record_feature_keys.append(feature.key)
 
     must_fix_format = []
     result = []
     for record in record_list:
-        #REMOVE ANY REPEATED FEATURES BY TURNING INTO DICT AND THEN BACK TO LIST
-        record['features'] = list(dict.fromkeys(record['features']))
+        record["features"] = list(dict.fromkeys(record['features']))
 
-        for feature in record['features']:
-            #IF THERE IS A FEATURE KEY THAT ISN'T INCLUDED IN THE FEATURE KEYS OF FIRST RECORD, REMOVE THAT FEATURE FROM RECORD
+        for feature in record["features"]:
             if feature.key not in first_record_feature_keys:
-                record['features'].remove(feature)
+                record["features"].remove(feature)
 
         #CREATE LIST OF POORLY FORMATTED RECORDS THAT NEED TO BE FIXED
-        if len(record['features']) != len(first_record_feature_keys):
+        if len(record["features"]) != len(first_record_feature_keys):
             must_fix_format.append(record)
         #CREATE LIST OF CORRECTLY FORMATTED RECORDS
         if record not in must_fix_format:
@@ -64,120 +50,53 @@ def format_record_list(first_record : list, record_list : list):
 
     #IF LIST CONTAINS ANY POORLY FORMATTED RECORDS, PRINT THEM OUT
     if len(must_fix_format) > 0:
-        print('SOME OF YOUR RECORDS ARE FORMATTED INCORRECTLY. THE FOLLOWING ARE NOT INCLUDED IN YOUR OUTPUT FILES.')
+        print("SOME OF YOUR RECORDS ARE FORMATTED INCORRECTLY. THE FOLLOWING ARE NOT INCLUDED IN YOUR OUTPUT FILES.")
         for record in must_fix_format:
-            print(record['locus'])
+            print(record["locus"])
 
     return (result)
 
 
 
+def run():
+    with open(INPUT_PATH) as handle:
 
-#PARSE GENBANK FILE AND STORE ALL REQUIRED INFO IN RECORD DICTIONARIES IN RECORD_LIST LIST
-with open(input_name) as handle:
+        record_list = []
+        for gbk_record in GenBank.parse(handle):
+            record = {
+                "locus": "",
+                "features": []
+            }
+            record["locus"] = gbk_record.locus
+            for feature in gbk_record.features:
+                record["features"].append(feature)
+            record_list.append(record)
 
-    record_list = []
-    for gbk_record in GenBank.parse(handle):
-        record = {
-            "locus": "",
-            "features": []
-        }
-        record["locus"] = gbk_record.locus
-        for feature in gbk_record.features:
-            record["features"].append(feature)
-        record_list.append(record)
-
-first_record = record_list[0]
-record_list = format_record_list(first_record, record_list)
-
-
-#NOW WRITE EVERYTHING TO FEAUTURES FILE
-with open(output_name, 'w', newline='') as output_file:
-    writer = csv.writer(output_file, delimiter='\t', escapechar=' ', quoting=csv.QUOTE_NONE)
-
-    for record in record_list:
-        """
-        write header line in the format:
-        >Feature	<LOCUS>
-        """
-        header_format = ['>Feature', record["locus"]]
-        writer.writerow(header_format)
-
-        for feature, first_feature in zip(record["features"], first_record['features']):
-            """
-            write location line in the format:
-            <loc0>	<loc1>	<feature.key>
-            """
-            locs = format_locs(feature.location)
-            loc_line_format = [locs[0], locs[1], str(feature.key)]
-            writer.writerow(loc_line_format)
-
-            #ITERATES THROUGH AND PRINTS QUALIFIERS IN FIRST FILE SO ALL OUTPUT MATCHES
-            for qualifier in first_feature.qualifiers:
-                """
-                looks for qualifier.key named "feature_type". If found, print line in the format:
-                                Product	<feature_type>
-                """
-                if 'type' in qualifier.key:
-                    type = str.strip(qualifier.value, '"')
-                    type_line_format = ['\t', '\t', '\t', 'product', type]
-                    writer.writerow(type_line_format)
-                """
-                looks for qualifier.key named "product". If found, print line in the format:
-                                Product	<product>
-                """
-                if 'product' in qualifier.key:
-                    product = str.strip(qualifier.value, '"')
-                    product_line_format = ['\t', '\t', '\t', 'product', product]
-                    writer.writerow(product_line_format)
-
-            writer.writerow('\t')
+    first_record = record_list[0]
+    record_list = format_record_list(first_record, record_list)
 
 
+    with open(OUTPUT_PATH, "w", newline="") as handle:
+        writer = csv.writer(handle, delimiter="\t", escapechar=" ", quoting=csv.QUOTE_NONE)
+
+        for record in record_list:
+            writer.writerow([">Feature", record["locus"]])
+
+            for feature, first_feature in zip(record["features"], first_record["features"]):
+
+                positions = format_locations(feature.location)
+                writer.writerow([positions[0], positions[1], str(feature.key)])
+
+                for qualifier in first_feature.qualifiers:
+                    if 'cds_type' in qualifier.key:
+                        writer.writerow(['\t', '\t', '\t', 'product', str.strip(qualifier.value, '"')])
+
+                    if 'product' in qualifier.key:
+                        writer.writerow(['\t', '\t', '\t', 'product', str.strip(qualifier.value, '"')])
+
+                writer.writerow('\t')
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+run()
 
 
