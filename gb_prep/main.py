@@ -7,7 +7,7 @@ INPUT_PATH = "GRVFV.gbk"
 OUTPUT_PATH = "features_output.txt"
 
 
-def format_locations(location):
+def format_locations(location : str):
     """
     Takes string describing location and returns nicely formatted tuple
 
@@ -18,64 +18,59 @@ def format_locations(location):
 
 
 
-def format_record_list(first_record : list, record_list : list):
+def format_record_list(record_list : list):
     """
     Takes full list of input records and removes any repeated features and any feature keys that don't match the feature keys in the first record. Prints list of incorrectly formatted features if contains extra features after these steps
 
-    :param first_record: record formatted correctly, compare others to this format
     :param record_list: list of all records from gbk file
     :return: list of records only containing records with the correct number of features that match desired format
     """
+    first_record = record_list[0]
+    first_record_feature_keys = [feature.key for feature in first_record["features"]]
 
-    first_record_feature_keys = []
-
-    for feature in first_record["features"]:
-        first_record_feature_keys.append(feature.key)
-
-    must_fix_format = []
-    result = []
     for record in record_list:
-        record["features"] = list(dict.fromkeys(record['features']))
 
+        record["features"] = list(dict.fromkeys(record['features']))
         for feature in record["features"]:
             if feature.key not in first_record_feature_keys:
                 record["features"].remove(feature)
 
-        #CREATE LIST OF POORLY FORMATTED RECORDS THAT NEED TO BE FIXED
-        if len(record["features"]) != len(first_record_feature_keys):
-            must_fix_format.append(record)
-        #CREATE LIST OF CORRECTLY FORMATTED RECORDS
-        if record not in must_fix_format:
-            result.append(record)
+        records_to_fix = [record for record in record_list if len(record["features"]) != len(first_record_feature_keys)]
 
-    #IF LIST CONTAINS ANY POORLY FORMATTED RECORDS, PRINT THEM OUT
-    if len(must_fix_format) > 0:
+        records_with_correct_format = [record for record in record_list if record not in records_to_fix]
+
+
+    if len(records_to_fix) > 0:
         print("SOME OF YOUR RECORDS ARE FORMATTED INCORRECTLY. THE FOLLOWING ARE NOT INCLUDED IN YOUR OUTPUT FILES.")
-        for record in must_fix_format:
+        for record in records_to_fix:
             print(record["locus"])
 
-    return (result)
+    return (records_with_correct_format)
 
 
 
 def run():
+    """
+    Parses through and generates a list of dictionaries containing all required information about records. Makes calls to functions to format records and locations and writes necessary information to output file.
+    """
+
     with open(INPUT_PATH) as handle:
 
         record_list = []
         for gbk_record in GenBank.parse(handle):
+
             record = {
                 "locus": "",
                 "features": []
             }
+
             record["locus"] = gbk_record.locus
-            for feature in gbk_record.features:
-                record["features"].append(feature)
+            record["features"] = [feature for feature in gbk_record.features]
             record_list.append(record)
 
+    record_list = format_record_list(record_list)
+
     first_record = record_list[0]
-    record_list = format_record_list(first_record, record_list)
-
-
     with open(OUTPUT_PATH, "w", newline="") as handle:
         writer = csv.writer(handle, delimiter="\t", escapechar=" ", quoting=csv.QUOTE_NONE)
 
