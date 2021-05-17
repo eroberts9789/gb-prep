@@ -1,0 +1,170 @@
+>Feature	12G438_GRVFV_A
+295	6651	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	12G438_GRVFV_B
+285	6638	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	14G466_GRVFV_A
+287	6643	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	14G473_GRVFV
+299	6655	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	14G475_GRVFV_A
+283	6066	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	14G475_GRVFV_B
+289	6645	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP005_GRVFV_A
+184	6540	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP005_GRVFV_B
+246	6602	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP005_GRVFV_C
+1	5889	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP005_GRVFV_E
+288	6644	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP018_GRVFV_A
+272	6628	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP018_GRVFV_B
+274	6630	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP020_GRVFV_A
+266	6622	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP020_GRVFV_B
+266	6622	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP022_GRVFV_A
+296	6652	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP022_GRVFV_B
+276	6632	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP026_GRVFV
+295	6651	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP028_GRVFV_A
+279	6632	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP028_GRVFV_B
+287	6640	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP028_GRVFV_C
+288	6641	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP028_GRVFV_D
+272	6628	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP030_GRVFV_A
+270	6626	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP030_GRVFV_B
+290	6031	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP030_GRVFV_C
+281	6637	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP031_GRVFV_A
+289	6729	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP031_GRVFV_B
+271	6627	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP031_GRVFV_C
+290	6646	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP031_GRVFV_D
+285	6641	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP031_GRVFV_E
+288	6644	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP031_GRVFV_F
+287	6643	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP034_GRVFV
+273	6629	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	16GVP038_GRVFV
+278	6634	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	17VT7_GRVFV_A
+274	6630	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
+>Feature	17VT7_GRVFV_B
+134	6490	CDS
+ 		 		 		product	ORF
+ 		 		 		product	polyprotein
+ 	
