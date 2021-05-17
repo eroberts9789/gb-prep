@@ -1,5 +1,6 @@
 import os
 import csv
+from typing import Tuple
 
 from Bio import GenBank
 
@@ -18,7 +19,7 @@ def format_locations(location : str):
 
 
 
-def format_record_list(record_list : list):
+def format_record_list(record_list: list) -> list:
     """
     Takes full list of input records and removes any repeated features and any feature keys that don't match the feature keys in the first record. Prints list of incorrectly formatted features if contains extra features after these steps
 
@@ -28,49 +29,51 @@ def format_record_list(record_list : list):
     first_record = record_list[0]
     first_record_feature_keys = [feature.key for feature in first_record["features"]]
 
+    records_with_correct_format = list()
     for record in record_list:
-
         record["features"] = list(dict.fromkeys(record['features']))
+
         for feature in record["features"]:
             if feature.key not in first_record_feature_keys:
                 record["features"].remove(feature)
 
-        records_to_fix = [record for record in record_list if len(record["features"]) != len(first_record_feature_keys)]
-
-        records_with_correct_format = [record for record in record_list if record not in records_to_fix]
-
-
-    if len(records_to_fix) > 0:
-        print("SOME OF YOUR RECORDS ARE FORMATTED INCORRECTLY. THE FOLLOWING ARE NOT INCLUDED IN YOUR OUTPUT FILES.")
-        for record in records_to_fix:
-            print(record["locus"])
-
-    return (records_with_correct_format)
+        if len(record["features"]) != len(first_record_feature_keys):
+            print("Error: record " + record["locus"] + " is formatted incorrectly")
+            sys.exit(1)
+        else:
+            records_with_correct_format.append(record)
 
 
 
-def run():
+def get_record_list():
     """
-    Parses through and generates a list of dictionaries containing all required information about records. Makes calls to functions to format records and locations and writes necessary information to output file.
+    Parses through and generates a list of dictionaries containing all required information about records.
+
+    Makes calls to other functions to format location and record data
     """
 
     with open(INPUT_PATH) as handle:
 
         record_list = []
+
         for gbk_record in GenBank.parse(handle):
+            record_list.append({
+                "locus": gbk_record.locus,
+                "features": [feature for feature in gbk_record.features]
+            })
 
-            record = {
-                "locus": "",
-                "features": []
-            }
+    return format_record_list(record_list)
 
-            record["locus"] = gbk_record.locus
-            record["features"] = [feature for feature in gbk_record.features]
-            record_list.append(record)
 
-    record_list = format_record_list(record_list)
 
+def write_features_file(record_list : list):
+    """
+    Takes record list as input and writes information to features file
+
+    :param record_list: list containing all properly formatted record data
+    """
     first_record = record_list[0]
+
     with open(OUTPUT_PATH, "w", newline="") as handle:
         writer = csv.writer(handle, delimiter="\t", escapechar=" ", quoting=csv.QUOTE_NONE)
 
@@ -78,7 +81,6 @@ def run():
             writer.writerow([">Feature", record["locus"]])
 
             for feature, first_feature in zip(record["features"], first_record["features"]):
-
                 positions = format_locations(feature.location)
                 writer.writerow([positions[0], positions[1], str(feature.key)])
 
@@ -92,6 +94,11 @@ def run():
                 writer.writerow('\t')
 
 
-run()
 
+def run():
+    """
+    Makes calls to functions to collect necessary data from .gbk file and to write output in features file format
+    """
+    record_list = get_record_list()
+    write_features_file(record_list)
 
